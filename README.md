@@ -1,25 +1,157 @@
-# CODING AGENTS: READ THIS FIRST
+# Pulse — Medical Device Design System
+### Marketing website
 
-This is a **handoff bundle** from Claude Design (claude.ai/design).
+A production-ready marketing site for the **Pulse** clinical design system,
+built with Next.js 14 (App Router), TypeScript, Tailwind CSS, shadcn/ui,
+and Framer Motion.
 
-A user mocked up designs in HTML/CSS/JS using an AI design tool, then exported this bundle so a coding agent can implement the designs for real.
+---
 
-## What you should do — IMPORTANT
+## Stack
 
-**Read the chat transcripts first.** There are 1 chat transcript(s) in `chats/`. The transcripts show the full back-and-forth between the user and the design assistant — they tell you **what the user actually wants** and **where they landed** after iterating. Don't skip them. The final HTML files are the output, but the chat is where the intent lives.
+| Layer | Technology |
+|---|---|
+| Framework | Next.js 14 (App Router) |
+| Language | TypeScript |
+| Styling | Tailwind CSS v3 + CSS variables |
+| Primitives | shadcn/ui (Accordion, Button, Slot) |
+| Animation | Framer Motion v11 |
+| Fonts | Inter Tight + JetBrains Mono (Google Fonts) |
+| Images | Unsplash (next/image with remote patterns) |
+| Deploy | Vercel (zero-config) |
 
-**Read `project/Pulse Design System.html` in full.** The user had this file open when they triggered the handoff, so it's almost certainly the primary design they want built. Read it top to bottom — don't skim. Then **follow its imports**: open every file it pulls in (shared components, CSS, scripts) so you understand how the pieces fit together before you start implementing.
+---
 
-**If anything is ambiguous, ask the user to confirm before you start implementing.** It's much cheaper to clarify scope up front than to build the wrong thing.
+## Setup
 
-## About the design files
+```bash
+# Clone and install
+git clone <repo>
+cd pulse-marketing
+npm install
 
-The design medium is **HTML/CSS/JS** — these are prototypes, not production code. Your job is to **recreate them pixel-perfectly** in whatever technology makes sense for the target codebase (React, Vue, native, whatever fits). Match the visual output; don't copy the prototype's internal structure unless it happens to fit.
+# Dev server
+npm run dev
+# → http://localhost:3000
 
-**Don't render these files in a browser or take screenshots unless the user asks you to.** Everything you need — dimensions, colors, layout rules — is spelled out in the source. Read the HTML and CSS directly; a screenshot won't tell you anything they don't.
+# Production build
+npm run build
+npm start
 
-## Bundle contents
+# Lint
+npm run lint
+```
 
-- `README.md` — this file
-- `chats/` — conversation transcripts (read these!)
-- `project/` — the `Medtronic Design System` project files (HTML prototypes, assets, components)
+---
+
+## Deploy to Vercel
+
+```bash
+# Install Vercel CLI
+npm i -g vercel
+
+# Deploy
+vercel
+
+# Production deploy
+vercel --prod
+```
+
+No environment variables are required. `next.config.js` whitelists
+`images.unsplash.com` and `picsum.photos` for `next/image`.
+
+---
+
+## Project structure
+
+```
+/
+├── app/
+│   ├── globals.css          # CSS variable theme + Tailwind base
+│   ├── layout.tsx           # Root layout, font loading, metadata
+│   └── page.tsx             # Single-page composition
+│
+├── components/
+│   ├── sections/
+│   │   ├── Header.tsx       # Sticky nav with glass effect
+│   │   ├── Hero.tsx         # Full-height hero with browser mockup
+│   │   ├── SocialProof.tsx  # Logo strip
+│   │   ├── ColorSection.tsx # Interactive color ramp (click to copy)
+│   │   ├── TypographySection.tsx  # Font pairing + type scale table
+│   │   ├── Features.tsx     # 6-card feature grid
+│   │   ├── About.tsx        # Two-column with image
+│   │   ├── HowItWorks.tsx   # 4-step process with code blocks
+│   │   ├── Gallery.tsx      # 7-image bento grid
+│   │   ├── Testimonials.tsx # 3 quotes on dark background
+│   │   ├── FAQ.tsx          # 7-item accordion
+│   │   ├── FinalCTA.tsx     # CTA banner with trust indicators
+│   │   └── Footer.tsx       # Full footer with nav columns
+│   │
+│   ├── shared/
+│   │   ├── Logo.tsx         # Pulse logomark + wordmark
+│   │   └── PulseIcon.tsx    # 1.5px stroked SVG icon set
+│   │
+│   └── ui/
+│       ├── button.tsx       # CVA-powered button variants
+│       └── accordion.tsx    # Radix accordion (FAQ)
+│
+├── lib/
+│   └── utils.ts             # cn() helper (clsx + tailwind-merge)
+│
+├── tailwind.config.ts       # Pulse tokens → Tailwind theme
+├── DECISIONS.md             # Inferred design decisions
+└── README.md                # This file
+```
+
+---
+
+## Design token reference
+
+All tokens live in `tailwind.config.ts` and are mirrored as CSS variables in
+`app/globals.css`. The Tailwind color utilities map directly:
+
+| Utility | Token |
+|---|---|
+| `bg-brand-700` | `#0B3D6F` (primary accent) |
+| `bg-brand-50` | `#F4F8FC` (accent tint) |
+| `text-ink-800` | `#121A24` (heading text) |
+| `text-ink-500` | `#525E70` (body muted) |
+| `border-ink-200` | `#DCE2EA` (standard border) |
+| `bg-status-critical` | `#C8322B` (alarm red) |
+| `bg-status-success` | `#2F8F5E` (stable green) |
+
+Font utilities: `font-sans` → Inter Tight, `font-mono` → JetBrains Mono.
+
+---
+
+## Lighthouse targets
+
+| Metric | Target |
+|---|---|
+| Performance | 95+ |
+| Accessibility | 100 |
+| Best Practices | 100 |
+| SEO | 100 |
+
+Images use `next/image` with explicit `sizes`, `alt`, and `loading="lazy"`.
+Fonts use `display: swap`. No layout shift from font loading.
+
+---
+
+## Sections
+
+| # | Section | Anchor |
+|---|---|---|
+| 1 | Sticky header + nav | — |
+| 2 | Hero | `#hero` |
+| 3 | Social proof strip | `#social-proof` |
+| 4 | Color system | `#color` |
+| 5 | Typography | `#typography` |
+| 6 | Features / Components | `#components` |
+| 7 | About / Story | `#about` |
+| 8 | How it works | `#patterns` |
+| 9 | Gallery / Showcase | `#gallery` |
+| 10 | Testimonials | `#testimonials` |
+| 11 | FAQ | `#faq` |
+| 12 | Final CTA | `#get-started` |
+| 13 | Footer | — |

@@ -1,0 +1,131 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Pulse Design System — CSS Variable Theme ─────────────────────────────── */
+@layer base {
+  :root {
+    /* shadcn/ui compatible HSL variables mapped to Pulse tokens */
+    --background:         210 27% 98%;    /* ink-25 #FBFCFD */
+    --foreground:         216 32% 11%;    /* ink-800 #121A24 */
+    --card:               0 0% 100%;      /* ink-0 white */
+    --card-foreground:    216 32% 11%;    /* ink-800 */
+    --primary:            211 73% 24%;    /* brand-700 #0B3D6F */
+    --primary-foreground: 210 60% 97%;    /* brand-50 #F4F8FC */
+    --secondary:          210 20% 94%;    /* ink-100 #ECEFF4 */
+    --secondary-foreground: 216 20% 29%;  /* ink-600 #37424F */
+    --muted:              210 20% 96%;    /* ink-50 */
+    --muted-foreground:   216 16% 44%;    /* ink-500 #525E70 */
+    --accent:             210 60% 97%;    /* brand-50 */
+    --accent-foreground:  211 73% 24%;    /* brand-700 */
+    --border:             214 18% 86%;    /* ink-200 #DCE2EA */
+    --input:              214 18% 86%;    /* ink-200 */
+    --ring:               211 73% 24%;    /* brand-700 */
+    --radius:             8px;
+
+    /* Pulse semantic surface tokens */
+    --surf:               #FFFFFF;
+    --surf-soft:          #FBFCFD;
+    --surf-tint:          #F5F7FA;
+    --surf-canvas:        #F5F7FA;
+    --line:               #DCE2EA;
+    --line-soft:          #ECEFF4;
+    --text:               #121A24;
+    --text-mute:          #525E70;
+    --text-faint:         #7B8696;
+    --accent-color:       #0B3D6F;
+    --accent-on:          #F4F8FC;
+  }
+
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    @apply bg-ink-50 text-ink-800;
+    font-feature-settings: "ss01", "cv11";
+    line-height: 1.55;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans font-semibold text-ink-800;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+/* ── Utility classes ──────────────────────────────────────────────────────── */
+@layer utilities {
+  .mono {
+    font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  /* Hairline borders — 1px, clinical precision */
+  .hairline {
+    border: 1px solid var(--line);
+  }
+
+  .hairline-soft {
+    border: 1px solid var(--line-soft);
+  }
+
+  /* Glass nav effect */
+  .glass {
+    background: color-mix(in oklab, #FFFFFF 88%, transparent);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    backdrop-filter: blur(20px) saturate(160%);
+  }
+
+  /* Gradient text */
+  .gradient-text {
+    background: linear-gradient(135deg, #0B3D6F 0%, #1D6FB8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Section layout */
+  .section-container {
+    @apply max-w-8xl mx-auto px-6 lg:px-8;
+  }
+
+  /* Eyebrow / kicker label */
+  .eyebrow {
+    @apply font-mono text-[11px] tracking-[0.10em] uppercase font-semibold text-brand-500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .eyebrow::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: currentColor;
+  }
+}
+
+/* ── Scrollbar ────────────────────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #B6BFCC; border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: #7B8696; }
